@@ -20,13 +20,10 @@ class ApiTodoController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $todos = Todo::where('user_id','=',$user_id)->get();
 
-        return response()->json([
-          'status'  => true,
-          'message' => 'List of my Todos.',
-          'todos'      => $todos,
-        ]);
+        $data = Todo::orderBy('id')->where('user_id','=',$user_id)->paginate(5);
+
+        return response()->json($data);
     }
 
     /**
