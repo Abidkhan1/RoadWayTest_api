@@ -47,8 +47,14 @@ class ApiTodoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+          'title' => 'required|string|max:255',
+          'description' => 'required|string|max:255',
+        ]);
+
         $todo = new Todo();
-        $todo->task = $request->task;
+        $todo->title = $request->title;
+        $todo->description = $request->description;
         $todo->user_id = Auth::user()->id;
         $todo->save();
 
@@ -96,8 +102,14 @@ class ApiTodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+          'title' => 'required|string|max:255',
+          'description' => 'required|string|max:255',
+        ]);
+
         Todo::where('id','=',$id)->update([
-            'task' => $request->task,
+            'title' => $request->title,
+            'description' => $request->description,
         ]);
 
         return response()->json([

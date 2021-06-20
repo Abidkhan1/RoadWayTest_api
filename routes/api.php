@@ -20,9 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /// JWT new APIs
 Route::group(['prefix'=>'auth','namespace'=>'App\Http\Controllers\Auth'], function(){
-  Route::post('test','ApiAuthController@index');
   Route::post('signin','SignInController@index');
-  // Route::post('signout','SignOutController@index');
+  Route::post('register','SignInController@register');
   Route::get('logout','SignInController@logout');
   Route::get('me','SignInController@me');
 });
